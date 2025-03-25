@@ -7,7 +7,7 @@ import {
   createPublicClient,
 } from "https://esm.sh/viem"
 import "https://esm.sh/viem/window"
-import { abi, contractAddress } from "./constants.js"
+import { abi, contractAddress } from "./constants-js.js"
 
 const connectButton = document.getElementById("connectButton")
 const fundButton = document.getElementById("fundButton")

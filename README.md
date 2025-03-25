@@ -39,7 +39,7 @@ cd html-ts-coffee-cu
 2. Run the following command:
 
 ```bash
-anvil --load-state fundme-anvil.json" 
+anvil --load-state fundme-anvil.json 
 ```
 
 This will load a local blockchain with our smart contract already deployed.
@@ -97,7 +97,14 @@ After doing the setup from above, do the following
 pnpm install
 ```
 
-2. Run the following command:
+2. Uncomment the line with `index-ts.ts` line in your `index.html` file, and comment out the line with `index-js.js`. Like this:
+
+```html
+<script src="./index-ts.ts" type="module"></script>
+<!-- <script src="./index-js.js" type="module"></script> -->
+```
+
+3. Run the following command:
 
 ```bash
 pnpm run dev

@@ -3,7 +3,8 @@
 	"scripts": {
 		"dev": "vite",
 		"anvil": "anvil --load-state fundme-anvil.json",
-		"format": "prettier --write ."
+		"format": "prettier --write .",
+		"compile": "tsc --project tsconfig.json "
 	},
 	"dependencies": {
 		"viem": "^2.23.2"
