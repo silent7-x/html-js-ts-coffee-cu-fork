@@ -1,5 +1,9 @@
 # HTML TS Buy Me A Coffee
 
+This is a website for the minimal code form the foundry full course, in specific, the `FundMe` codebase, which can be found here:
+
+https://github.com/Cyfrin/foundry-fund-me-cu
+
 - [HTML TS Buy Me A Coffee](#html-ts-buy-me-a-coffee)
 - [Setup (Both Javascript and Typescript Editions)](#setup-both-javascript-and-typescript-editions)
   - [Requirements](#requirements)
