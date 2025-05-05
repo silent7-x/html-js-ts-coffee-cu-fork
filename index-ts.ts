@@ -1,12 +1,12 @@
 import {
+  createPublicClient,
   createWalletClient,
   custom,
+  defineChain,
   formatEther,
   parseEther,
-  defineChain,
-  createPublicClient,
-  type WalletClient,
   type PublicClient,
+  type WalletClient,
 } from "viem"
 import "viem/window"
 import { abi, contractAddress } from "./constants-ts"
@@ -16,6 +16,10 @@ const fundButton = document.getElementById("fundButton") as HTMLButtonElement
 const balanceButton = document.getElementById("balanceButton") as HTMLButtonElement
 const withdrawButton = document.getElementById("withdrawButton") as HTMLButtonElement
 const ethAmountInput = document.getElementById("ethAmount") as HTMLInputElement
+const addressToQueryInput = document.getElementById("addressToQuery") as HTMLInputElement
+const getAddressToAmountFundedButton = document.getElementById(
+  "getAddressToAmountFundedButton"
+) as HTMLButtonElement
 
 let walletClient: WalletClient
 let publicClient: PublicClient
@@ -41,8 +45,7 @@ export async function fund(): Promise<void> {
       walletClient = createWalletClient({
         transport: custom(window.ethereum),
       })
-      const addresses = await walletClient.requestAddresses()
-      const account: string = addresses[0]
+      const [account] = await walletClient.requestAddresses()
       const currentChain = await getCurrentChain(walletClient)
 
       console.log("Processing transaction...")
@@ -76,7 +79,8 @@ export async function getBalance(): Promise<void> {
       const balance = await publicClient.getBalance({
         address: contractAddress,
       })
-      console.log(formatEther(balance))
+      console.log(formatEther(balance) + " ETH")
+      alert(`Balance: ${formatEther(balance)} ETH`)
     } catch (error) {
       console.error(error)
     }
@@ -96,8 +100,7 @@ export async function withdraw(): Promise<void> {
       publicClient = createPublicClient({
         transport: custom(window.ethereum),
       })
-      const addresses = await walletClient.requestAddresses()
-      const account: string = addresses[0]
+      const [account] = await walletClient.requestAddresses()
       const currentChain = await getCurrentChain(walletClient)
 
       console.log("Processing transaction...")
@@ -115,6 +118,31 @@ export async function withdraw(): Promise<void> {
     }
   } else {
     withdrawButton.innerHTML = "Please install MetaMask"
+  }
+}
+
+export async function getAddressToAmountFunded(): Promise<void> {
+  const addressToQuery = addressToQueryInput.value
+  console.log(`Getting address to amount funded for ${addressToQuery}...`)
+
+  if (typeof window.ethereum !== "undefined") {
+    try {
+      publicClient = createPublicClient({
+        transport: custom(window.ethereum),
+      })
+      const amountFunded = await publicClient.readContract({
+        address: contractAddress,
+        abi,
+        functionName: "getAddressToAmountFunded",
+        args: [addressToQuery],
+      })
+      console.log(formatEther(amountFunded as bigint) + " ETH")
+      alert(`Montant: ${formatEther(amountFunded as bigint)} ETH`)
+    } catch (error) {
+      console.error(error)
+    }
+  } else {
+    getAddressToAmountFundedButton.innerHTML = "Please install MetaMask"
   }
 }
 
@@ -142,3 +170,4 @@ connectButton.onclick = connect
 fundButton.onclick = fund
 balanceButton.onclick = getBalance
 withdrawButton.onclick = withdraw
+getAddressToAmountFundedButton.onclick = getAddressToAmountFunded
