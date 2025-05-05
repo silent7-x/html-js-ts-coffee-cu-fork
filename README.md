@@ -1,5 +1,8 @@
 Forked from Cyfrin Updraft Full-Stack Web3 Development Crash Course in order to add getAddressToAmountFunded function in the index-ts.ts script.
 
+- Original course source: [Cyfrin Updraft Full-Stack Web3 Development Crash Course](https://updraft.cyfrin.io/courses/full-stack-web3-development-crash-course)
+- Original repository: [Cyfrin html-ts-coffee-cu GitHub](https://github.com/Cyfrin/html-ts-coffee-cu/tree/main)
+
 # HTML TS Buy Me A Coffee
 
 This is a website for the minimal code form the foundry full course, in specific, the `FundMe` codebase, which can be found here:
